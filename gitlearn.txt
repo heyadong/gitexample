@@ -10,16 +10,15 @@ windows 下因为Git是分布式版本控制系统，所以，每个机器都必
 5、git diff  <filename> 查看文件变化部分
 6、git commit    -m "提交记录"  -a ""
 7、git log  常看所有commit 的记录；git log --pretty=oneline 美化查看log
-8、 版本的回退：
+8、版本的回退：
  git reset --hard  HEAD^ 表示回退到上上一个版本 HEAD^^ （上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个HEAD~100）
  windows 下由于^表示换行 需要输入“HEAD^”或者使用 git reset --hard HEAD~1
-
-
+9、git 远程仓库：
+   * git remote add origin "https://github.com/heyadong/gitexample.git"
+10、
 memcached 是一个高性能的分布式 内存对象缓存系统，memcached 能存储各种各样的数据，包括图像、视频、文件、以及数据库减速结果：
 memcached 适用场景，存储验证码、图形验证码、登陆session 等不是至关重要的数据
 memcached.exe  -d install 
-
-
 
 ubuntu 安装 mysql
 sudo apt-get mysql-client
