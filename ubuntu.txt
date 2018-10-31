@@ -1,0 +1,46 @@
+
+Linux 安装 memcached
+1、sudo apt-get install libevent ibevent-dev   // 先安装libenvent 库
+2、sudo apt-get install memcached
+
+paysapi 个人商户
+Uid（商户号）7535b6d0703be79c8e83bbcf
+Token（秘钥）58373630c5c720ff6074ee2f61d91303
+
+Django 数据库访问优化：
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Category(models.Model):
+    name = models.CharField(max_length=16)
+
+class Topic(models.Model):
+    name = models.CharField( max_length=16)
+
+class Article(models.Model):
+    '文章'
+    title = models.CharField('标题', max_length=100)
+    content = models.TextField('内容')
+    pub_date = models.DateTimeField('发布日期')
+    category = models.ForeignKey(Category)
+    topics = models.ManyToManyField(Topic)
+
+class ArticleComment(BaseComment):
+    '文章评论'
+    content = models.TextField('评论')
+    article = models.ForeignKey(Article, related_name='comments')
+
+
+针对ORM 模型的优化 ，减少数据库访问此时再提取有外键关联的模型的数据可以使用select_related
+1、使用select_related 提取关联模型
+使用ArticleComment.objects.select_related('article__category') 可以同时将评论关联的文章以及文章分类提取出来。
+2、使用prefetch_related 预加载关联模型。
+ Category.objects.prefetch_related('article_set').get(id=2)
+3、Prefetch (django.db.models.Prefetch) 
+ article = Article.object.filter(id__gt=5)  # id 大于5的文章
+result =  Category.objects.prefetch_related(Prefetch(''article_set'，query_set=article, ,to_attr('nihao')).get(id=2)  
+    # to_attr 参数可以将 预加载的模型变成结果的列表保存在 结果的nihao 属性中（result.nihao)
+
+
+
